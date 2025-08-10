@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     try {
         const checkUser = await UserModel.findOne({ email });
 
-        if (checkUser) return NextResponse.json({ success: false, message: "User already exists!" }, { status: 409 });
+        if (checkUser) return NextResponse.json({ success: true, message: "User already exists!" }, { status: 200 });
 
         await UserModel.create({
             firstName,

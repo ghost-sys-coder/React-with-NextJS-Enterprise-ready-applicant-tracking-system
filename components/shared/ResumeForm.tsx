@@ -1,5 +1,5 @@
 "use client";
-import React from 'react'
+import React, { useState } from 'react'
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -11,6 +11,9 @@ import ResumePDFPreview from './ResumePDFPreview'
 import FormInputTextArea from './FormInput';
 import { Button } from '../ui/button';
 import FileUploader from './FileUploader';
+import axios from 'axios';
+import { Loader2 } from 'lucide-react';
+import clsx from 'clsx';
 
 
 const formSchema = z.object({
@@ -26,6 +29,8 @@ const formSchema = z.object({
 })
 
 const ResumeForm = () => {
+    const [isProcessing, setIsProcessing] = useState(false);
+
     // Define your form
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -39,7 +44,22 @@ const ResumeForm = () => {
 
     // define submit handler
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
-        console.log({ data });
+        const formData = new FormData();
+        formData.append("companyName", data.companyName);
+        formData.append("jobTitle", data.jobTitle);
+        formData.append("jobDescription", data.jobDescription);
+        formData.append("resumeFile", data.resumeFile);
+
+        setIsProcessing(true);
+
+        try {
+            const response = await axios.post("/api/resume-upload", formData);
+            console.log(response.data);
+        } catch (error) {
+            console.log("Error sending Request", error);   
+        } finally {
+            setIsProcessing(false);
+        }
     }
 
     return (
@@ -75,7 +95,22 @@ const ResumeForm = () => {
                             maxSize={20}
                             label='Upload Resume PDF File'
                         />
-                        <Button className='cursor-pointer hover:opacity-90' type="submit">Analyze Resume</Button>
+                        <div className={clsx("flex items-center w-full", isProcessing ? "justify-center" : "justify-start")}>
+                        <Button
+                            className='cursor-pointer hover:opacity-90'
+                            type="submit"
+                            disabled={isProcessing}
+                        >
+                            {isProcessing ? (
+                                <>
+                                    <Loader2 size={30} className='animate-spin' />
+                                    <span>Processing your resume...</span>
+                                </>
+                            ): (
+                               <span>Analyze Your Resume</span> 
+                            )}
+                        </Button>
+                        </div>
                     </form>
                 </Form>
             </div>
