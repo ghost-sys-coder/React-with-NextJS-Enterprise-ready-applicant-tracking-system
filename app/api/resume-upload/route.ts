@@ -11,6 +11,8 @@ import connectToMongoDB from "@/lib/mongo";
 // import path from "path";
 
 
+export const runTIme = "edge" // for faster streaming in Next.js App router
+
 export async function POST(req: NextRequest) {
   // protect the route
   await auth.protect();
@@ -110,14 +112,18 @@ export async function POST(req: NextRequest) {
         `;
 
     /**
-     * ?? Call OpenAI
+     * ?? Create OpenAI Client
      */
     const openai = new OpenAI({
       apiKey: process.env.NEXT_PUBLIC_OPENROUTER_AI_PROJECT_KEY!,
       baseURL: "https://openrouter.ai/api/v1",
     });
 
-    const response = await openai.chat.completions.create({
+    /**
+     * !! Create a streaming completion
+     */
+
+    const completionStream = await openai.chat.completions.stream({
       model: "tngtech/deepseek-r1t2-chimera:free",
       messages: [
         {
@@ -125,12 +131,38 @@ export async function POST(req: NextRequest) {
           content: aiPrompt,
         },
       ],
+      stream: true
     });
 
-    console.log(response.choices[0].message);
-    const feedback = response.choices?.[0]?.message?.content || "No feedback generated!";
+    /**
+     * ?? Convert AI Stream to Web Stream
+     */
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of completionStream) {
+            const token = chunk?.choices?.[0]?.delta?.content || "";
+            if (token) {
+              controller.enqueue(encoder.encode(token));
+            }
+          }
+        } catch (error) {
+          console.error("streaming error:", error);
+          controller.enqueue(encoder.encode(JSON.stringify({error: "Streaming Failed"})))
+        } finally {
+          controller.close();
+        }
+      }
+    })
 
-    return NextResponse.json({ success: true, feedback }, { status: 200 });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Transfer-Encoding": "chucked"
+      }
+    })
   } catch (err) {
     console.log(err)
     return NextResponse.json(

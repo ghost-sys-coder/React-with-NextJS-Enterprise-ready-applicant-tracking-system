@@ -40,7 +40,7 @@ const FormInputTextArea = <T extends FieldValues>({ form, name, label, placehold
                                     rows={10}
                                     placeholder={placeholder}
                                     {...field}
-                                    className='max-h-[300px]'
+                                    className='max-h-[250px]'
                                 />
                             )}
                         </FormControl>
