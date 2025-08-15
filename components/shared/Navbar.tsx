@@ -50,7 +50,7 @@ const Navbar: React.FC<NavUserProps> = ({ firstName, profileImage, lastName, ema
     }
 
     return (
-        <nav className='bg-white border-b shadow-sm w-full sticky top-0 px-4 py-4'>
+        <nav className='bg-white border-b shadow-sm w-full sticky top-0 px-4 py-4 z-50'>
             <div className="flex justify-between items-center gap-8">
                 <Link href={"/"} className='font-semibold text-2xl text-indigo-600'>CVScan</Link>
 

@@ -181,7 +181,8 @@ export async function POST(req: NextRequest) {
                 resource_type: "image", // Use 'raw' for PDFs
                 folder: "resumes/pdfs", // Organize in a folder
                 public_id: `resume_pdf_${userId}_${Date.now()}`, // Unique filename
-                format: "pdf"
+                format: "pdf",
+                access_mode: "public"
               },
               (error, result) => {
                 if (error) reject(error);

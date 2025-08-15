@@ -119,4 +119,20 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .resume-card {
+   @apply bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-gray-200 transition-all duration-300 overflow-hidden; 
+  }
+
+  .resume-card_image_container {
+    @apply relative h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden;
+  }
+
+  .resume-card_overlay {
+    @apply absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center
+  }
+
+  .resume-card_view_button {
+    @apply block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg;
+  }
 }
