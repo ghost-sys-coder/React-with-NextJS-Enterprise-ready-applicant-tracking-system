@@ -112,6 +112,8 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -121,7 +123,7 @@
   }
 
   .resume-card {
-   @apply bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-gray-200 transition-all duration-300 overflow-hidden; 
+    @apply bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:border-gray-200 transition-all duration-300 overflow-hidden;
   }
 
   .resume-card_image_container {
@@ -129,10 +131,49 @@
   }
 
   .resume-card_overlay {
-    @apply absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center
+    @apply absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center;
   }
 
   .resume-card_view_button {
     @apply block w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-center font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-md hover:shadow-lg;
+  }   
+
+  /* Landing/Home Page styles */
+  .homepage {
+    @apply min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 max-w-[1440px] mx-auto text-white overflow-x-hidden relative;
   }
+  .navbar {
+    @apply z-50 transition-all duration-300 shadow-md rounded-md px-4 fixed top-0 left-0 right-0 w-full bg-slate-900;
+  }
+
+  .nav-container {
+    @apply max-w-[1200px] mx-auto flex justify-between items-center gap-4 py-4 md:py-6;
+  }
+
+  .nav-container .logo {
+    @apply text-4xl font-bold bg-gradient-to-br from-purple-400 to-pink-400 bg-clip-text text-transparent;
+  }
+
+  .nav-links {
+    @apply md:flex gap-3 hidden;
+  }
+
+  .nav-links .link {
+    @apply text-slate-300 hover:text-purple-300 transition-colors duration-300 font-medium;
+  }
+
+  .nav-links .link:hover {
+    @apply relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[3px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+
+  .nav-links .get-started-button {
+    @apply bg-gradient-to-br from-purple-600 via-pink-400 to-purple-700 px-4 py-3 rounded-md;
+  }
+
+  .nav-links .get-started-button :hover {
+    @apply ring-4 ring-pink-400;
+  }
+
+  /*  */
 }
