@@ -1,4 +1,5 @@
 import React from 'react'
+import { ResumeFeedbackProps } from '@/types';
 
 
 interface ViewStreamPDFDataProps {
