@@ -11,7 +11,7 @@ import connectToMongoDB from "@/lib/mongo";
 // import path from "path";
 
 
-export const runtime = "edge" // for faster streaming in Next.js App router
+export const runtime = "nodejs" // for faster streaming in Next.js App router
 
 export async function POST(req: NextRequest) {
   // protect the route
