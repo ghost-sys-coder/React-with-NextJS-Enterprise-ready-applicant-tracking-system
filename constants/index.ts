@@ -122,3 +122,6 @@ export const footerLinks = [
   { label: "Support", link: "/support" },
   { label: "About", link: "/about"}
 ]
+
+
+

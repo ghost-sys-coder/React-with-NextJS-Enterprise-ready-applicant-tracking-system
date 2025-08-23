@@ -6,6 +6,7 @@ import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const ContactSection = () => {
     const [contactInfo, setContactInfo] = useState({
@@ -27,7 +28,33 @@ const ContactSection = () => {
         setIsSubmitting(true);
 
         try {
-          console.log("Submitting contact form with data:", contactInfo);  
+            const response = await fetch("/api/notifications", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(contactInfo)
+            });
+            const { success } = await response.json();
+            if (success) {
+                // Reset form fields after successful submission
+                setContactInfo({
+                    firstName: "",
+                    lastName: "",
+                    email: "",
+                    subject: "",
+                    message: ""
+                });
+                toast("Thank you for your message! We'll get back to you soon.", {
+                    description: "Your message has been sent successfully.",
+                    duration: 5000,
+                    icon: "👍",
+                    style: {
+                        backgroundColor: '#1e293b', // slate-800
+                        color: '#fff',
+                    },
+                })
+            }
         } catch (error) {
             console.log("Error submitting contact form:", error);
         } finally {
@@ -95,7 +122,8 @@ const ContactSection = () => {
                     </div>
                     <div className="flex justify-end items-center">
                         <Button type="submit"
-                            className='bg-gradient-to-br from-purple-400 to-pink-400/50 px-4 py-6'
+                            className='bg-gradient-to-br from-purple-400 to-pink-400/50 px-4 py-6 cursor-pointer'
+                            disabled={isSubmitting}
                         >
                             {isSubmitting ? (
                                 <>

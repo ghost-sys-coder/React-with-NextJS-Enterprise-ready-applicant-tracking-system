@@ -12,6 +12,8 @@ const MainLayout = async ({ children }: { children: ReactNode }) => {
     // Get the Backend API User object when you need to access to the user's information
     const user = await currentUser();
 
+    console.log({ user });
+
     
     return (
         <main className="max-w-[1440px] mx-auto">

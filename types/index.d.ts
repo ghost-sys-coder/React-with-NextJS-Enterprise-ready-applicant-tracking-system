@@ -70,3 +70,19 @@ interface ResumeItem {
   resumeAnalysisStatus: "Pending" | "Completed" | "Failed";
   createdAt: string;
 }
+
+
+// Contact form Data
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  subject: string;
+  email: string;
+  message: string;
+}
+
+interface NotificationConfig {
+  ownerEmail: string;
+  ownerPhone: string;
+  ownerName: string;
+}
