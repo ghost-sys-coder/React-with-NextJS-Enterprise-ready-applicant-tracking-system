@@ -1,9 +1,21 @@
 import { NextResponse, NextRequest } from "next/server";
-import {
-  sendContactFormEmails,
-} from "@/lib/notifications";
+import { sendContactFormEmails } from "@/lib/notifications";
+import { auth } from "@clerk/nextjs/server";
+import connectToMongoDB from "@/lib/mongo";
 
 export async function POST(req: NextRequest) {
+  // protect the route
+  const { isAuthenticated } = await auth();
+
+  if (!isAuthenticated) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
+  //  connect to mongodb
+  await connectToMongoDB();
   const { firstName, lastName, email, subject, message } = await req.json();
 
   // Validate the input data
