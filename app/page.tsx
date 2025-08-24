@@ -5,6 +5,7 @@ import HeroBox from "@/components/shared/HeroBox";
 import HomePageNavbar from "@/components/shared/HomePageNavbar";
 import PricingSection from "@/components/shared/PricingSection";
 
+
 export default function Home() {
   return (
     <div className="homepage">
