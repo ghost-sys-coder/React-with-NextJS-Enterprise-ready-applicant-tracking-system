@@ -7,7 +7,7 @@ import clsx from 'clsx'
 
 const HeroBox = () => {
     return (
-        <SectionWrapper className='mt-30 flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 relative'>
+        <SectionWrapper className='mt-30 flex items-center justify-center overflow-hidden px-10 sm:px-28 lg:px-32 relative'>
 
             {/* background animation */}
             <div className="absolute inset-0 opacity-20">

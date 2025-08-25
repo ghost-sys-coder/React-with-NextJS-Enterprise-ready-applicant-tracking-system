@@ -63,7 +63,7 @@ const ContactSection = () => {
     }
 
     return (
-        <SectionWrapper sectionId='contact' className='mt-30 px-4 md:px-6 lg:px-8 space-y-8'>
+        <SectionWrapper sectionId='contact' className='mt-30 px-10 md:px-28 lg:px-32 space-y-8'>
             <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-lg  border border-purple-500/20 rounded-xl p-8">
                 <h5 className='text-2xl font-semibold text-white mb-6 text-center'>Send a message or an Inquiry</h5>
                 <form className="space-y-6 max-w-4xl mx-auto" onSubmit={handleSubmit}>

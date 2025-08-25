@@ -147,7 +147,7 @@
   }
 
   .nav-container {
-    @apply max-w-[1200px] mx-auto flex justify-between items-center gap-4 py-4 md:py-6;
+    @apply max-w-[1400px] mx-auto flex justify-between items-center gap-4 py-4 md:py-6;
   }
 
   .nav-container .logo {

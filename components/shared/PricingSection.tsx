@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 
 const PricingSection = () => {
     return (
-        <SectionWrapper className="mt-30 px-4 md:px-6 lg:px-8" sectionId="pricing">
+        <SectionWrapper className="mt-30 px-10 md:px-28 lg:px-32" sectionId="pricing">
             <div className="w-full">
                 <div className="text-center mb-6">
                     <h2 className="text-3xl lg:text-5xl bg-gradient-to-r from-white to-purple-400 bg-clip-text text-transparent font-semibold">Choose Your Plan</h2>
