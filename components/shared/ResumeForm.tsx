@@ -20,7 +20,7 @@ import FormInputTextArea from './FormInput';
 
 export function cleanData(feedback: string) {
     return feedback.replace("```json", "").replace("```", "");
-  }
+}
 
 
 const formSchema = z.object({
@@ -32,12 +32,18 @@ const formSchema = z.object({
             message: "Only PDF files are allowed"
         }).refine(file => file instanceof File && file.size <= 20 * 1024 * 1024, {
             message: "File size must less than 20MB"
-        }).optional()
+        }).optional(),
+    currentPlan: z.string()
+        .refine(plan => ["free_plan", "starter_plan", "professional_plan", "enterprise_plan"].includes(plan), {
+            message: "Invalid plan type"
+        }).optional(),
+
 })
 
-const ResumeForm = () => {
+const ResumeForm = ({ currentPlan }: { currentPlan: string }) => {
     const router = useRouter();
     const [isProcessing, setIsProcessing] = useState(false);
+
 
     // Define your form
     const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +52,8 @@ const ResumeForm = () => {
             companyName: "",
             jobTitle: "",
             jobDescription: "",
-            resumeFile: null
+            resumeFile: null,
+            currentPlan: currentPlan || "free_plan"
         }
     });
 
@@ -57,6 +64,7 @@ const ResumeForm = () => {
         formData.append("jobTitle", data.jobTitle);
         formData.append("jobDescription", data.jobDescription);
         formData.append("resumeFile", data.resumeFile);
+        formData.append("currentPlan", data.currentPlan ?? "free_plan");
 
         setIsProcessing(true);
 
@@ -66,11 +74,11 @@ const ResumeForm = () => {
                 body: formData
             });
 
-            // console.log(await response.json());
             const { data } = await response.json();
-            
-            if (data.projectId) return router.push(`/resumes/${data.projectId}`);
-    
+            console.log("Response Data", data);
+
+            // if (data.projectId) return router.push(`/resumes/${data.projectId}`);
+
         } catch (error) {
             console.log("Error sending Request", error);
         } finally {
@@ -83,6 +91,12 @@ const ResumeForm = () => {
             <div className="lg:w-[650px] w-full">
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
+                        {/* hidden input for current plan */}
+                        <input
+                            type="hidden"
+                            {...form.register("currentPlan")}
+                            value={currentPlan}
+                        />
                         <FormInputTextArea
                             name='companyName'
                             placeholder='Company Name...'

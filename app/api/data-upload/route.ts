@@ -41,6 +41,8 @@ export async function POST(req: NextRequest) {
     const companyName = formData.get("companyName") as string;
     const jobTitle = formData.get("jobTitle") as string;
     const jobDescription = formData.get("jobDescription") as string;
+    const currentPlan = formData.get("currentPlan") as string;
+
 
     if (!resumeFile || !companyName || !jobTitle || !jobDescription) {
       return NextResponse.json(

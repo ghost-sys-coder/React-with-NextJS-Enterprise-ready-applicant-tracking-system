@@ -5,8 +5,16 @@ import UserModel from "@/models/user.model";
 
 
 export async function POST(req: NextRequest) {
-    // protect backend route
-    await auth.protect();
+    // protect backend route and check user subscription plan
+    const { userId, isAuthenticated } = await auth.protect();
+
+    if (!userId || !isAuthenticated) {
+        return NextResponse.json({
+            success: false,
+            message: "Unauthorized Access!!"
+        }, { status: 401 });
+    }
+
     // await mongodb connection
     await connectToMongoDB();
 

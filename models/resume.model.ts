@@ -39,6 +39,35 @@ const resumeSchema = new mongoose.Schema<ResumeAnalysisObject>({
     type: String,
     enum: ["Pending", "Completed", "Failed"],
     default: "Pending"
+  },
+
+  // New Features Added
+  maxResumesAnalyzed: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
+  maxResumesStored: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
+  prioritySupport: {
+    type: Boolean,
+    default: false,
+  },
+  canAccessPremiumFeatures: {
+    type: Boolean,
+    default: false,
+  },
+  customBranding: {
+    type: Boolean,
+    default: false,
+  },
+  accessPlan: {
+    type: String,
+    enum: ["free_plan", "starter_plan", "professional_plan", "enterprise_plan"],
+    default: "Free Plan"
   }
 }, {
   timestamps: true,

@@ -10,7 +10,7 @@ const SectionWrapper: React.FC<SectionWrapperProps> = ({
     className, children, sectionId
 }) => {
     return (
-        <section className={`min-h-screen max-w-[1200px] mx-auto ${className}`} id={sectionId}>
+        <section className={`min-h-screen max-w-[1600px] mx-auto ${className}`} id={sectionId}>
             {children}
         </section>
     )

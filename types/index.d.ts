@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 interface User {
+  clerkUserId: string;
   firstName: string;
   lastName: string;
   email: string;
   imageUrl: string;
+  userCurrentSubscription: string;
 }
 
 interface ResumeAnalysisSection {
@@ -37,6 +39,13 @@ interface ResumeAnalysisObject {
   rawTextContext: string;
   createdAt: Date;
   updatedAt: Date;
+  // New Features Added
+  maxResumesAnalyzed: number;
+  maxResumesStored: number;
+  prioritySupport: boolean;
+  canAccessPremiumFeatures: boolean;
+  customBranding: boolean;
+  accessPlan: string;
 }
 
 interface ResumeFeedbackProps {
