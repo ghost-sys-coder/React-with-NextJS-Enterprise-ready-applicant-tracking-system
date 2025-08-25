@@ -15,7 +15,7 @@ const MainLayout = async ({ children }: { children: ReactNode }) => {
 
     
     return (
-        <main className="max-w-[1440px] mx-auto">
+        <main className="max-w-[1600px] mx-auto">
             <Navbar
                 firstName={user?.firstName ?? ""}
                 lastName={user?.lastName ?? ""}
